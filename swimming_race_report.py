@@ -15,6 +15,10 @@ import os
 def extract_results(url, swimmer_name):
     res = requests.get(url)
     res.encoding = 'utf-8'
+    if res.status_code != 200:
+        print(f"❌ URLにアクセスできませんでした: {url} (Status: {res.status_code})")
+        return None
+        
     soup = BeautifulSoup(res.text, 'html.parser')
 
     rows = soup.select('table tr')
